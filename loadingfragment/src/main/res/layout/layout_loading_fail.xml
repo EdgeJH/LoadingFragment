@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/sad_emoji"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/fail_image"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fail_text"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="로딩에 실패했습니다. 다시 시도해 주세요"
+            android:textColor="@color/black"
+            android:layout_marginTop="50dp"
+            android:textSize="16dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:text="다시 시도"
+            android:id="@+id/refreshBtn"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+</RelativeLayout>
