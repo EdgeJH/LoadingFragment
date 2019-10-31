@@ -3,10 +3,10 @@ package com.edge.loading
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.edge.loadingfragment.LoadingFragment
 import com.edge.loadingfragment.OnRefreshClickListener
 import kotlinx.android.synthetic.main.fragment_example.*
@@ -36,8 +36,10 @@ class ExampleFragment : LoadingFragment() {
         * */
         setProgressColor(R.color.colorAccent)
         loadingBtn.setOnClickListener {
-            startLoading()
-            loadingFail()
+            if (!isLoading){
+                startLoading()
+                loadingFail()
+            }
         }
         setOnRefreshClickListener(object : OnRefreshClickListener {
             override fun onRefreshClick() {

@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import android.widget.ProgressBar
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.layout_loading_fail.view.*
 
 /**
@@ -32,6 +32,7 @@ open class LoadingFragment : Fragment() {
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT
     )
+    var isLoading : Boolean = false
     private var onRefreshClickListener: OnRefreshClickListener? = null
 
     protected fun setView(view: ViewGroup) {
@@ -78,6 +79,7 @@ open class LoadingFragment : Fragment() {
     }
 
     protected fun startLoading() {
+        isLoading = true
         if (originView != null) {
             progress.indeterminateDrawable.colorFilter =
                 PorterDuffColorFilter(
@@ -106,6 +108,7 @@ open class LoadingFragment : Fragment() {
     }
 
     protected fun finishLoading() {
+        isLoading = false
         if (::backgroundView.isInitialized) {
             showOriginContent()
             originView?.removeView(failLayout)
@@ -113,6 +116,7 @@ open class LoadingFragment : Fragment() {
         }
     }
     protected fun failLoading() {
+        isLoading = false
         if (::backgroundView.isInitialized) {
             originView?.removeView(backgroundView)
         }
