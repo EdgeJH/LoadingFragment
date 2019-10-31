@@ -4,6 +4,7 @@
 # LoadingFragment
 Easy Loading Fragment
 
+우리는 서버로 부터 많은 데이터 통신을 합니다. 그리고 그것을 프래그먼트에 리사이클러뷰를 이용하거나 각각의 자신만의 멋진 UI로 데이터를 보여줍니다. 하지만 항상 서버로 부터 데이터를 받을때 로딩이 걸리는 시간에 UI를 어떻게 처리할지 상당히 귀찮은 작업을 생각해야합니다. 이 라이브러리는 그런 불편한 코드를 쉽게 하도록 하는 부모 프래그먼트 입니다. 원하는곳에 상속 받아 사용하면 되겠습니다.
 
 ### Example
 
@@ -20,7 +21,7 @@ allprojects {
 }
   
 dependencies {
-	implementation 'com.github.EdgeJH:InAppUpdate:1.0.2'
+	implementation 'com.github.EdgeJH:LoadingFragment:1.0.0'
 }
 
 ```
