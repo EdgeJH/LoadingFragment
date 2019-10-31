@@ -9,7 +9,21 @@ Easy Loading Fragment
 
 ![example gif](example.gif)
 
+## Download
 
+``` gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+  
+dependencies {
+	implementation 'com.github.EdgeJH:InAppUpdate:1.0.2'
+}
+
+```
 
 ### Usage
 
