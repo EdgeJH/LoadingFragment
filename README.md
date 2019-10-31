@@ -41,7 +41,7 @@ class ExampleFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setView(view!! as ViewGroup)
+        setView(view as ViewGroup)
         /*Default layout_loading_fail
         * this Layout contains refresh button and OnRefreshClickListener
         * If you custom this Layout use this method
@@ -82,7 +82,7 @@ class ExampleFragment : LoadingFragment() {
 * `failLoading()`
 * `setProgressColor(R.color.colorAccent)`
 * `setFailView(R.layout.layout_loading_fail)`
-* `setView(view!! as ViewGroup)`
+* `setView(view as ViewGroup)`
 * `setOnRefreshClickListener(object : OnRefreshClickListener {})`
         
 
