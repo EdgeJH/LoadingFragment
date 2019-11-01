@@ -87,7 +87,7 @@ open class LoadingFragment : Fragment() {
                     PorterDuff.Mode.SRC_IN
                 )
             hideOriginContent()
-            originView!!.addView(backgroundView, 0)
+            originView!!.addView(backgroundView)
         }
     }
 
@@ -121,8 +121,10 @@ open class LoadingFragment : Fragment() {
             originView?.removeView(backgroundView)
         }
         if (failLayout!=null && failLayout!!.parent != null){
-            originView?.removeView(failLayout)
+            failLayout?.visibility=View.VISIBLE
+        } else{
+            originView?.addView(failLayout)
         }
-        originView?.addView(failLayout, 0)
+
     }
 }
