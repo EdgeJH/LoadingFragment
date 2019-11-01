@@ -22,7 +22,7 @@ allprojects {
 }
   
 dependencies {
-	implementation 'com.github.EdgeJH:LoadingFragment:1.0.3'
+	implementation 'com.github.EdgeJH:LoadingFragment:1.0.4'
 }
 
 ```
