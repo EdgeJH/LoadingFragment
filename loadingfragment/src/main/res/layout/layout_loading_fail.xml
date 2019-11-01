@@ -24,16 +24,25 @@
             android:textColor="@color/black"
             android:layout_marginTop="50dp"
             android:textSize="16dp"/>
-        <Button
-            android:layout_width="200dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:text="다시 시도"
-            android:id="@+id/refreshBtn"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"/>
+            android:id="@+id/refreshBtn"
+            android:layout_marginBottom="20dp"
+            android:background="?attr/selectableItemBackground">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:background="@drawable/round_square"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="다시 시도"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+               />
+        </RelativeLayout>
+
     </LinearLayout>
 </RelativeLayout>
