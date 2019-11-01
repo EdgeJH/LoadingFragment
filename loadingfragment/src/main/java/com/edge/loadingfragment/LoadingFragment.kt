@@ -120,6 +120,9 @@ open class LoadingFragment : Fragment() {
         if (::backgroundView.isInitialized) {
             originView?.removeView(backgroundView)
         }
+        if (failLayout!=null && failLayout!!.parent != null){
+            originView?.removeView(failLayout)
+        }
         originView?.addView(failLayout, 0)
     }
 }
