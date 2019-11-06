@@ -51,7 +51,6 @@ open class LoadingFragment : Fragment() {
     protected fun setFailView(@LayoutRes layoutResId: Int) {
         failLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
         failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
-        failLayout?.refreshBtn?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
         failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
         failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
         failLayout?.layoutParams = backgroundParams
@@ -76,7 +75,6 @@ open class LoadingFragment : Fragment() {
     }
     protected fun setFailBackgroundColor(@ColorRes colorResId: Int){
         failBackgroundColor = colorResId
-        failLayout?.refreshBtn?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
         failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
     }
     protected fun setFailTextColor(@ColorRes colorResId: Int){
