@@ -1,7 +1,6 @@
 package com.edge.loadingfragment
 
 
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.Gravity
@@ -27,6 +26,9 @@ open class LoadingFragment : Fragment() {
     private lateinit var progress: ProgressBar
     private lateinit var backgroundView: FrameLayout
     private var progressColor: Int = R.color.black
+    private var backgroundColor : Int = R.color.white
+    private var refreshBtnTextColor : Int = R.color.black
+    private var failTextColor : Int = R.color.black
     private var failLayout: View? = null
     private val backgroundParams = ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -47,6 +49,8 @@ open class LoadingFragment : Fragment() {
 
     protected fun setFailView(@LayoutRes layoutResId: Int) {
         failLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
+        failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
+        failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
         failLayout?.layoutParams = backgroundParams
         when (layoutResId) {
             R.layout.layout_loading_fail -> {
@@ -63,10 +67,23 @@ open class LoadingFragment : Fragment() {
         progressColor = colorResId
     }
 
+    protected fun setBackgroundColor(@ColorRes colorResId: Int){
+        backgroundColor = colorResId
+        backgroundView.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
+    }
+
+    protected fun setFailTextColor(@ColorRes colorResId: Int){
+        failTextColor =  colorResId
+        failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
+    }
+
+    protected fun setRefreshBtnColor(@ColorRes colorResId: Int){
+        refreshBtnTextColor = colorResId
+        failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
+    }
 
     private fun initLoadingView() {
         backgroundView = FrameLayout(activity!!)
-        backgroundView.setBackgroundColor(Color.WHITE)
         backgroundView.layoutParams = backgroundParams
         val progressParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
