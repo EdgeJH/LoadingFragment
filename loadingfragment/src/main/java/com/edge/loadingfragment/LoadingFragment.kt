@@ -24,7 +24,7 @@ open class LoadingFragment : Fragment() {
 
     private var originView: ViewGroup? = null
     private lateinit var progress: ProgressBar
-    private lateinit var backgroundView: FrameLayout
+    private var backgroundView: FrameLayout? = null
     private var progressColor: Int = R.color.black
     private var backgroundColor : Int = R.color.white
     private var refreshBtnTextColor : Int = R.color.black
@@ -69,7 +69,7 @@ open class LoadingFragment : Fragment() {
 
     protected fun setBackgroundColor(@ColorRes colorResId: Int){
         backgroundColor = colorResId
-        backgroundView.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
+        backgroundView?.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
     }
 
     protected fun setFailTextColor(@ColorRes colorResId: Int){
@@ -84,7 +84,8 @@ open class LoadingFragment : Fragment() {
 
     private fun initLoadingView() {
         backgroundView = FrameLayout(activity!!)
-        backgroundView.layoutParams = backgroundParams
+        backgroundView?.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
+        backgroundView?.layoutParams = backgroundParams
         val progressParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
@@ -92,7 +93,7 @@ open class LoadingFragment : Fragment() {
         progressParams.gravity = Gravity.CENTER
         progress = ProgressBar(activity)
         progress.layoutParams = progressParams
-        backgroundView.addView(progress)
+        backgroundView?.addView(progress)
     }
 
     protected fun startLoading() {
@@ -126,7 +127,7 @@ open class LoadingFragment : Fragment() {
 
     protected fun finishLoading() {
         isLoading = false
-        if (::backgroundView.isInitialized) {
+        if (backgroundView!=null) {
             showOriginContent()
             originView?.removeView(failLayout)
             originView?.removeView(backgroundView)
@@ -134,7 +135,7 @@ open class LoadingFragment : Fragment() {
     }
     protected fun failLoading() {
         isLoading = false
-        if (::backgroundView.isInitialized) {
+        if (backgroundView!=null) {
             originView?.removeView(backgroundView)
         }
         if (failLayout!=null && failLayout!!.parent != null){
