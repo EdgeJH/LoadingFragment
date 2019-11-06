@@ -27,6 +27,7 @@ open class LoadingFragment : Fragment() {
     private var backgroundView: FrameLayout? = null
     private var progressColor: Int = R.color.black
     private var backgroundColor : Int = R.color.white
+    private var failBackgroundColor : Int = R.color.white
     private var refreshBtnTextColor : Int = R.color.black
     private var failTextColor : Int = R.color.black
     private var failLayout: View? = null
@@ -49,6 +50,7 @@ open class LoadingFragment : Fragment() {
 
     protected fun setFailView(@LayoutRes layoutResId: Int) {
         failLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
+        failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
         failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
         failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
         failLayout?.layoutParams = backgroundParams
@@ -71,7 +73,10 @@ open class LoadingFragment : Fragment() {
         backgroundColor = colorResId
         backgroundView?.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
     }
-
+    protected fun setFailBackgroundColor(@ColorRes colorResId: Int){
+        failBackgroundColor = colorResId
+        failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
+    }
     protected fun setFailTextColor(@ColorRes colorResId: Int){
         failTextColor =  colorResId
         failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
