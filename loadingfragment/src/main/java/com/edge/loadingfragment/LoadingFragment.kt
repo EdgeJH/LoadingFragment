@@ -14,6 +14,7 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.layout_loading_fail.view.*
+import kotlinx.android.synthetic.main.layout_no_data.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -31,6 +32,9 @@ open class LoadingFragment : Fragment() {
     private var refreshBtnTextColor : Int = R.color.black
     private var failTextColor : Int = R.color.black
     private var failLayout: View? = null
+    private var noDataTextColor : Int = R.color.black
+    private var noDataBackgroundColor : Int = R.color.white
+    private var noDataLayout : View? = null
     private val backgroundParams = ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT
@@ -42,6 +46,7 @@ open class LoadingFragment : Fragment() {
         originView = view
         initLoadingView()
         setFailView(R.layout.layout_loading_fail)
+        setNoDataLayout(R.layout.layout_no_data)
     }
 
     protected fun setOnRefreshClickListener(onRefreshClickListener: OnRefreshClickListener) {
@@ -51,7 +56,7 @@ open class LoadingFragment : Fragment() {
     protected fun setFailView(@LayoutRes layoutResId: Int) {
         failLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
         failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
-        failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
+        failLayout?.failTv?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
         failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
         failLayout?.layoutParams = backgroundParams
         when (layoutResId) {
@@ -63,6 +68,13 @@ open class LoadingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    protected fun setNoDataLayout(@LayoutRes layoutResId: Int){
+        noDataLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
+        noDataLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,noDataBackgroundColor))
+        noDataLayout?.noDataTv?.setTextColor(ContextCompat.getColor(activity!!,noDataTextColor))
+        noDataLayout?.layoutParams = backgroundParams
     }
 
     protected fun setProgressColor(@ColorRes colorResId: Int) {
@@ -79,12 +91,22 @@ open class LoadingFragment : Fragment() {
     }
     protected fun setFailTextColor(@ColorRes colorResId: Int){
         failTextColor =  colorResId
-        failLayout?.fail_text?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
+        failLayout?.failTv?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
     }
 
     protected fun setRefreshBtnColor(@ColorRes colorResId: Int){
         refreshBtnTextColor = colorResId
         failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
+    }
+
+    protected fun setNoDataTextColor(@ColorRes colorResId: Int){
+        noDataTextColor =  colorResId
+        noDataLayout?.noDataTv?.setTextColor(ContextCompat.getColor(activity!!,noDataTextColor))
+    }
+
+    protected fun setNoDataBackgroundColor(@ColorRes colorResId: Int){
+        noDataBackgroundColor = colorResId
+        noDataLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,noDataBackgroundColor))
     }
 
     private fun initLoadingView() {
@@ -130,12 +152,16 @@ open class LoadingFragment : Fragment() {
         }
     }
 
-    protected fun finishLoading() {
+    protected fun finishLoading(noData: Boolean) {
         isLoading = false
         if (backgroundView!=null) {
-            showOriginContent()
-            originView?.removeView(failLayout)
-            originView?.removeView(backgroundView)
+           if (noData){
+              noDataLoading()
+           }else{
+               showOriginContent()
+               originView?.removeView(backgroundView)
+               originView?.removeView(failLayout)
+           }
         }
     }
     protected fun failLoading() {
@@ -148,6 +174,18 @@ open class LoadingFragment : Fragment() {
         } else{
             originView?.addView(failLayout)
         }
+    }
 
+
+    protected fun noDataLoading(){
+        isLoading = false
+        if (backgroundView!=null) {
+            originView?.removeView(backgroundView)
+        }
+        if (noDataLayout!=null && noDataLayout!!.parent != null){
+            noDataLayout?.visibility=View.VISIBLE
+        } else{
+            originView?.addView(noDataLayout)
+        }
     }
 }

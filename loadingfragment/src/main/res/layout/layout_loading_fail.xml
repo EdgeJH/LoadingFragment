@@ -13,11 +13,11 @@
             android:layout_height="100dp"
             android:src="@drawable/sad_emoji"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/fail_image"/>
+            android:id="@+id/failIv"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fail_text"
+            android:id="@+id/failTv"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="로딩에 실패했습니다. 다시 시도해 주세요"

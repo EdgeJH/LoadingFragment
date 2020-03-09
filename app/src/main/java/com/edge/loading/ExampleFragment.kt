@@ -38,7 +38,7 @@ class ExampleFragment : LoadingFragment() {
         loadingBtn.setOnClickListener {
             if (!isLoading){
                 startLoading()
-                loadingFail()
+                loadingNoData()
             }
         }
         setOnRefreshClickListener(object : OnRefreshClickListener {
@@ -51,7 +51,13 @@ class ExampleFragment : LoadingFragment() {
 
     private fun loadingFinish(){
         handler.postDelayed({
-            finishLoading()
+            finishLoading(false)
+        },2000)
+    }
+
+    private fun loadingNoData(){
+        handler.postDelayed({
+            finishLoading(true)
         },2000)
     }
 
