@@ -42,22 +42,25 @@ open class LoadingFragment : Fragment() {
     var isLoading : Boolean = false
     private var onRefreshClickListener: OnRefreshClickListener? = null
 
-    protected fun setView(view: ViewGroup) {
+
+    fun setView(view: ViewGroup) {
         originView = view
         initLoadingView()
         setFailView(R.layout.layout_loading_fail)
         setNoDataLayout(R.layout.layout_no_data)
+        setNoDataBackgroundColor(noDataBackgroundColor)
+        setNoDataTextColor(noDataTextColor)
+        setFailBackgroundColor(failBackgroundColor)
+        setFailTextColor(failTextColor)
+        setRefreshBtnColor(refreshBtnTextColor)
     }
 
-    protected fun setOnRefreshClickListener(onRefreshClickListener: OnRefreshClickListener) {
+    fun setOnRefreshClickListener(onRefreshClickListener: OnRefreshClickListener) {
         this.onRefreshClickListener = onRefreshClickListener
     }
 
-    protected fun setFailView(@LayoutRes layoutResId: Int) {
+    fun setFailView(@LayoutRes layoutResId: Int) {
         failLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
-        failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
-        failLayout?.failTv?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
-        failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
         failLayout?.layoutParams = backgroundParams
         when (layoutResId) {
             R.layout.layout_loading_fail -> {
@@ -70,41 +73,49 @@ open class LoadingFragment : Fragment() {
         }
     }
 
-    protected fun setNoDataLayout(@LayoutRes layoutResId: Int){
-        noDataLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
-        noDataLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,noDataBackgroundColor))
-        noDataLayout?.noDataTv?.setTextColor(ContextCompat.getColor(activity!!,noDataTextColor))
+    fun setFailView(view : View){
+        failLayout = view
+        failLayout?.layoutParams = backgroundParams
+    }
+
+    fun setNoDataLayout(view : View){
+        noDataLayout = view
         noDataLayout?.layoutParams = backgroundParams
     }
 
-    protected fun setProgressColor(@ColorRes colorResId: Int) {
+    fun setNoDataLayout(@LayoutRes layoutResId: Int){
+        noDataLayout = LayoutInflater.from(activity).inflate(layoutResId, null)
+        noDataLayout?.layoutParams = backgroundParams
+    }
+
+    fun setProgressColor(@ColorRes colorResId: Int) {
         progressColor = colorResId
     }
 
-    protected fun setBackgroundColor(@ColorRes colorResId: Int){
+    fun setBackgroundColor(@ColorRes colorResId: Int){
         backgroundColor = colorResId
         backgroundView?.setBackgroundColor(ContextCompat.getColor(activity!!,backgroundColor))
     }
-    protected fun setFailBackgroundColor(@ColorRes colorResId: Int){
+    fun setFailBackgroundColor(@ColorRes colorResId: Int){
         failBackgroundColor = colorResId
         failLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,failBackgroundColor))
     }
-    protected fun setFailTextColor(@ColorRes colorResId: Int){
+    fun setFailTextColor(@ColorRes colorResId: Int){
         failTextColor =  colorResId
         failLayout?.failTv?.setTextColor(ContextCompat.getColor(activity!!,failTextColor))
     }
 
-    protected fun setRefreshBtnColor(@ColorRes colorResId: Int){
+    fun setRefreshBtnColor(@ColorRes colorResId: Int){
         refreshBtnTextColor = colorResId
         failLayout?.refreshBtn?.setTextColor(ContextCompat.getColor(activity!!,refreshBtnTextColor))
     }
 
-    protected fun setNoDataTextColor(@ColorRes colorResId: Int){
+    fun setNoDataTextColor(@ColorRes colorResId: Int){
         noDataTextColor =  colorResId
         noDataLayout?.noDataTv?.setTextColor(ContextCompat.getColor(activity!!,noDataTextColor))
     }
 
-    protected fun setNoDataBackgroundColor(@ColorRes colorResId: Int){
+    fun setNoDataBackgroundColor(@ColorRes colorResId: Int){
         noDataBackgroundColor = colorResId
         noDataLayout?.setBackgroundColor(ContextCompat.getColor(activity!!,noDataBackgroundColor))
     }
@@ -123,7 +134,7 @@ open class LoadingFragment : Fragment() {
         backgroundView?.addView(progress)
     }
 
-    protected fun startLoading() {
+    fun startLoading() {
         isLoading = true
         if (originView != null) {
             progress.indeterminateDrawable.colorFilter =
@@ -136,7 +147,7 @@ open class LoadingFragment : Fragment() {
         }
     }
 
-    private fun hideOriginContent() {
+    final private fun hideOriginContent() {
         if (originView != null) {
             for (i in 0 until originView!!.childCount) {
                 originView!!.getChildAt(i).visibility = View.GONE
@@ -152,7 +163,7 @@ open class LoadingFragment : Fragment() {
         }
     }
 
-    protected fun finishLoading(noData: Boolean) {
+    fun finishLoading(noData: Boolean) {
         isLoading = false
         if (backgroundView!=null) {
            if (noData){
@@ -161,10 +172,11 @@ open class LoadingFragment : Fragment() {
                showOriginContent()
                originView?.removeView(backgroundView)
                originView?.removeView(failLayout)
+               originView?.removeView(noDataLayout)
            }
         }
     }
-    protected fun failLoading() {
+    fun failLoading() {
         isLoading = false
         if (backgroundView!=null) {
             originView?.removeView(backgroundView)
@@ -177,7 +189,7 @@ open class LoadingFragment : Fragment() {
     }
 
 
-    protected fun noDataLoading(){
+    fun noDataLoading(){
         isLoading = false
         if (backgroundView!=null) {
             originView?.removeView(backgroundView)

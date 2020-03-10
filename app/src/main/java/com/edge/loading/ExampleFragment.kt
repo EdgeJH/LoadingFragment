@@ -49,6 +49,8 @@ class ExampleFragment : LoadingFragment() {
         })
     }
 
+
+
     private fun loadingFinish(){
         handler.postDelayed({
             finishLoading(false)
@@ -58,6 +60,7 @@ class ExampleFragment : LoadingFragment() {
     private fun loadingNoData(){
         handler.postDelayed({
             finishLoading(true)
+            loadingFail()
         },2000)
     }
 
