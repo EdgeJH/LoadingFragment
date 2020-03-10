@@ -22,7 +22,7 @@ allprojects {
 }
   
 dependencies {
-	implementation 'com.github.EdgeJH:LoadingFragment:1.1.1'
+	implementation 'com.github.EdgeJH:LoadingFragment:2.0.1'
 }
 
 ```
@@ -33,7 +33,7 @@ dependencies {
 
 class ExampleFragment : LoadingFragment() {
 
-    private val handler =Handler()
+    private val handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_example, container, false)
@@ -41,7 +41,7 @@ class ExampleFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setView(view as ViewGroup)
+        setView(view!! as ViewGroup)
         /*Default layout_loading_fail
         * this Layout contains refresh button and OnRefreshClickListener
         * If you custom this Layout use this method
@@ -49,8 +49,10 @@ class ExampleFragment : LoadingFragment() {
         * */
         setProgressColor(R.color.colorAccent)
         loadingBtn.setOnClickListener {
-            startLoading()
-            loadingFail()
+            if (!isLoading){
+                startLoading()
+                loadingNoData()
+            }
         }
         setOnRefreshClickListener(object : OnRefreshClickListener {
             override fun onRefreshClick() {
@@ -60,9 +62,18 @@ class ExampleFragment : LoadingFragment() {
         })
     }
 
+
+
     private fun loadingFinish(){
         handler.postDelayed({
-            finishLoading()
+            finishLoading(false)
+        },2000)
+    }
+
+    private fun loadingNoData(){
+        handler.postDelayed({
+            finishLoading(true)
+            loadingFail()
         },2000)
     }
 
