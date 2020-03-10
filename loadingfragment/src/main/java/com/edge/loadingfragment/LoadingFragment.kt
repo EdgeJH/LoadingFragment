@@ -78,6 +78,14 @@ open class LoadingFragment : Fragment() {
         failLayout?.layoutParams = backgroundParams
     }
 
+
+    fun getFailView() : View? {
+        return failLayout
+    }
+
+    fun getNoDataLayout() : View? {
+        return noDataLayout
+    }
     fun setNoDataLayout(view : View){
         noDataLayout = view
         noDataLayout?.layoutParams = backgroundParams
@@ -147,7 +155,7 @@ open class LoadingFragment : Fragment() {
         }
     }
 
-    final private fun hideOriginContent() {
+    private fun hideOriginContent() {
         if (originView != null) {
             for (i in 0 until originView!!.childCount) {
                 originView!!.getChildAt(i).visibility = View.GONE
